@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MojeProdukty</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function searchProducts() {
+      const input = document.getElementById('search').value.toLowerCase();
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(input) ? 'block' : 'none';
+      });
+    }
+
+    function filterPrice() {
+      const price = document.getElementById('priceFilter').value;
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        const cardPrice = parseFloat(card.dataset.price);
+        card.style.display = cardPrice <= price ? 'block' : 'none';
+      });
+    }
+
+    let cartCount = 0;
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cart').textContent = `Košík (${cartCount})`;
+    }
+  </script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex items-center justify-between">
+    <strong class="text-2xl">MojeProdukty</strong>
+    <div class="flex gap-4">
+      <input id="search" type="text" oninput="searchProducts()" placeholder="Hledat..." class="border rounded p-2">
+      <button id="cart" class="bg-blue-500 text-white px-4 py-2 rounded">Košík (0)</button>
+    </div>
+  </header>
+
+  <!-- Filters -->
+  <section class="p-4">
+    <label for="priceFilter" class="block mb-2 font-semibold">Maximální cena:</label>
+    <input id="priceFilter" type="range" min="0" max="5000" value="5000" step="100" onchange="filterPrice()" class="w-full">
+  </section>
+
+  <!-- Products -->
+  <main class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">Nejnovější produkty</h2>
+      <div class="grid gap-4">
+
+        <div class="product-card bg-white rounded shadow p-4" data-price="299">
+          <img src="https://via.placeholder.com/300" alt="Produkt 1" class="rounded mb-2">
+          <h3 class="font-semibold">Produkt 1</h3>
+          <p class="text-gray-600">299 Kč</p>
+          <button onclick="addToCart()" class="mt-2 bg-green-500 text-white px-4 py-2 rounded">Koupit</button>
+        </div>
+
+        <div class="product-card bg-white rounded shadow p-4" data-price="499">
+          <img src="https://via.placeholder.com/300" alt="Produkt 2" class="rounded mb-2">
+          <h3 class="font-semibold">Produkt 2</h3>
+          <p class="text-gray-600">499 Kč</p>
+          <button onclick="addToCart()" class="mt-2 bg-green-500 text-white px-4 py-2 rounded">Koupit</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">Doporučené produkty</h2>
+      <div class="grid gap-4">
+
+        <div class="product-card bg-white rounded shadow p-4" data-price="199">
+          <img src="https://via.placeholder.com/300" alt="Produkt 3" class="rounded mb-2">
+          <h3 class="font-semibold">Produkt 3</h3>
+          <p class="text-gray-600">199 Kč</p>
+          <button onclick="addToCart()" class="mt-2 bg-green-500 text-white px-4 py-2 rounded">Koupit</button>
+        </div>
+
+        <div class="product-card bg-white rounded shadow p-4" data-price="899">
+          <img src="https://via.placeholder.com/300" alt="Produkt 4" class="rounded mb-2">
+          <h3 class="font-semibold">Produkt 4</h3>
+          <p class="text-gray-600">899 Kč</p>
+          <button onclick="addToCart()" class="mt-2 bg-green-500 text-white px-4 py-2 rounded">Koupit</button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white shadow p-4 text-center mt-8">
+    &copy; 2025 MojeProdukty. Všechna práva vyhrazena.
+  </footer>
+
+</body>
+</html>
